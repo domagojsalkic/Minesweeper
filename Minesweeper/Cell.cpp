@@ -70,12 +70,11 @@ void Cell::setFlag(std::unordered_map<std::string, sf::Texture*>& textureMap)
 {
     if (isFlag)
     {
-        isFlag = !isFlag;
         shape.setTexture(textureMap.at("Cell"));
     }
     else
     {
-        isFlag = !isFlag;
         shape.setTexture(textureMap.at("Flag"));
     }
+    isFlag = !isFlag;
 }

@@ -11,7 +11,7 @@ void GameState::initGameState(sf::RenderWindow& window, sf::Vector2f gridPositio
     }
     grid.clear();
 
-    int numOfBombs = 40;
+    numOfBombs = 0;
     numOfCells = window.getSize().x / SIZE;
 
     grid.resize(numOfCells, std::vector<Cell*>());
@@ -19,14 +19,16 @@ void GameState::initGameState(sf::RenderWindow& window, sf::Vector2f gridPositio
 
     for (int i = 0; i < numOfCells; i++)
     {
-        grid[i].resize(numOfCells, new Cell());
+        grid[i].resize(numOfCells, nullptr);
         for (int j = 0; j < numOfCells; j++)
         {
-            if (rand() % 10 == 0 && numOfBombs > 0)
+            if (rand() % 8 == 0)
+            {
                 grid[i][j] = new Cell(index, textureMap.at("Cell"), CellContent::BOMB, sf::Vector2f(gridPosition.x + i * SIZE, gridPosition.y + j * SIZE));
+                numOfBombs++;
+            }
             else
                 grid[i][j] = new Cell(index, textureMap.at("Cell"), CellContent::EMPTY, sf::Vector2f(gridPosition.x + i * SIZE, gridPosition.y + j * SIZE));
-
             index++;
         }
     }
@@ -255,7 +257,11 @@ void GameState::rightClick(sf::Vector2i mousePos, std::unordered_map<std::string
         {
             if (cell->getShape().getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
-                cell->setFlag(textureMap);
+                    cell->setFlag(textureMap);
+                    if (cell->isFlagSet())
+                        numOfBombs--;
+                    else
+                        numOfBombs++;
             }
         }
     }
@@ -266,10 +272,11 @@ bool GameState::isBombExploded()
     return bombExploded;
 }
 
-void GameState::startGame(sf::Vector2i mousePos)
+int GameState::bombLeft()
 {
-
+    return numOfBombs;
 }
+
 
 void GameState::openCells(std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, int index)
 {

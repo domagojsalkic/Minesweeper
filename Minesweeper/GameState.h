@@ -22,7 +22,7 @@ public:
 
     bool isBombExploded();
 
-    void startGame(sf::Vector2i mousePos);
+    int bombLeft();
 
 private:
     void openCells(std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, int index);
@@ -31,6 +31,7 @@ private:
     std::vector<std::vector<Cell*>> evidenceGrid;
     bool bombExploded;
     int numOfCells;
+    int numOfBombs;
     const float SIZE = 25;
 };
 

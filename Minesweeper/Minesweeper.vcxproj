@@ -176,6 +176,9 @@
     <Image Include="Images\Two.png" />
     <Image Include="Images\UnCheckedCell.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Font Include="Fonts\digital-7.ttf" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
