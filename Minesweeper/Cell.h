@@ -1,7 +1,8 @@
 #pragma once
 
-#include <unordered_map>
-#include "SFML/Graphics.hpp"
+#include "stdafx.h"
+
+
 
 enum class CellContent
 {

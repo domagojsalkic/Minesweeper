@@ -3,3 +3,7 @@
 #include "SFML/Network.hpp"
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
+#include <time.h>
+#include <vector>
+#include <cstdlib>
+#include <unordered_map>

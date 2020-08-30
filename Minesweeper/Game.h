@@ -1,7 +1,5 @@
 #pragma once
-#include "SFML/Graphics.hpp"
-#include <cstdlib>
-#include <unordered_map>
+#include "stdafx.h"
 #include "Cell.h"
 #include "GameState.h"
 
