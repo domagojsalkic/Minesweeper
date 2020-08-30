@@ -219,28 +219,14 @@ void GameState::leftClick(sf::Vector2i mousePos, std::unordered_map<std::string,
                     openCells(textureMap, "Empty", grid[i][j]->getIndex());
                     break;
                 case CellContent::ONE:
-                    openCell(textureMap, "One", grid[i][j]);
-                    break;
                 case CellContent::TWO:
-                    openCell(textureMap, "Two", grid[i][j]);
-                    break;
                 case CellContent::THREE:
-                    openCell(textureMap, "Three", grid[i][j]);
-                    break;
                 case CellContent::FOUR:
-                    openCell(textureMap, "Four", grid[i][j]);
-                    break;
                 case CellContent::FIVE:
-                    openCell(textureMap, "Five", grid[i][j]);
-                    break;
                 case CellContent::SIX:
-                    openCell(textureMap, "Six", grid[i][j]);
-                    break;
                 case CellContent::SEVEN:
-                    openCell(textureMap, "Seven", grid[i][j]);
-                    break;
                 case CellContent::EIGHTH:
-                    openCell(textureMap, "Eighth", grid[i][j]);
+                    openCell(textureMap, grid[i][j]);
                     break;
                 default:
                     break;
@@ -289,19 +275,27 @@ void GameState::openCells(std::unordered_map<std::string, sf::Texture*>& texture
             {
                 if (!grid[i][j]->isCellOpen())
                 {
-                    if (grid[i][j]->getContent() == CellContent::EMPTY && !grid[i][j]->isFlagSet())
+                    if (!grid[i][j]->isFlagSet())
                     {
-                        grid[i][j]->Open();
-                        grid[i][j]->getShape().setTexture(textureMap.at(textureName));
-                        if (i - 1 >= 0)
-                            openCells(textureMap, textureName, grid[i - 1][j]->getIndex());
-                        if (j - 1 >= 0)
-                            openCells(textureMap, textureName, grid[i][j - 1]->getIndex());
-                        if (j + 1 < numOfCells)
-                            openCells(textureMap, textureName, grid[i][j + 1]->getIndex());
-                        if (i + 1 < numOfCells)
-                            openCells(textureMap, textureName, grid[i + 1][j]->getIndex());
+                        if (grid[i][j]->getContent() == CellContent::EMPTY)
+                        {
+                            grid[i][j]->Open();
+                            grid[i][j]->getShape().setTexture(textureMap.at(textureName));
+                            if (i - 1 >= 0)
+                                openCells(textureMap, textureName, grid[i - 1][j]->getIndex());
+                            if (j - 1 >= 0)
+                                openCells(textureMap, textureName, grid[i][j - 1]->getIndex());
+                            if (j + 1 < numOfCells)
+                                openCells(textureMap, textureName, grid[i][j + 1]->getIndex());
+                            if (i + 1 < numOfCells)
+                                openCells(textureMap, textureName, grid[i + 1][j]->getIndex());
+                        }
+                        else
+                        {
+                            openCell(textureMap, grid[i][j]);
+                        }
                     }
+
                 }
             }
         }
@@ -309,11 +303,40 @@ void GameState::openCells(std::unordered_map<std::string, sf::Texture*>& texture
 
 }
 
-void GameState::openCell(std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, Cell* cell)
+void GameState::openCell(std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* cell)
 {
     if (!cell->isCellOpen() && !cell->isFlagSet())
     {
         cell->Open();
-        cell->getShape().setTexture(textureMap.at(textureName));
+        switch (cell->getContent())
+        {
+        case CellContent::ONE:
+            cell->getShape().setTexture(textureMap.at("One"));
+            break;
+        case CellContent::TWO:
+            cell->getShape().setTexture(textureMap.at("Two"));
+            break;
+        case CellContent::THREE:
+            cell->getShape().setTexture(textureMap.at("Three"));
+            break;
+        case CellContent::FOUR:
+            cell->getShape().setTexture(textureMap.at("Four"));
+            break;
+        case CellContent::FIVE:
+            cell->getShape().setTexture(textureMap.at("Five"));
+            break;
+        case CellContent::SIX:
+            cell->getShape().setTexture(textureMap.at("Six"));
+            break;
+        case CellContent::SEVEN:
+            cell->getShape().setTexture(textureMap.at("Seven"));
+            break;
+        case CellContent::EIGHTH:
+            cell->getShape().setTexture(textureMap.at("Eighth"));
+            break;
+        default:
+            break;
+        }
+        
     }
 }

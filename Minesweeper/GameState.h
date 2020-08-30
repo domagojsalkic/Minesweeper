@@ -25,7 +25,7 @@ public:
 
 private:
     void openCells(std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, int index);
-    void openCell(std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, Cell* cell);
+    void openCell(std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* cell);
     std::vector<std::vector<Cell*>> grid;
     std::vector<std::vector<Cell*>> evidenceGrid;
     bool bombExploded;
