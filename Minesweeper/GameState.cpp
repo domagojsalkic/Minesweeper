@@ -244,11 +244,14 @@ void GameState::rightClick(sf::Vector2i mousePos, std::unordered_map<std::string
         {
             if (cell->getShape().getGlobalBounds().contains(mousePos.x, mousePos.y))
             {
+                if (!cell->isCellOpen())
+                {
                     cell->setFlag(textureMap);
                     if (cell->isFlagSet())
                         numOfBombs--;
                     else
                         numOfBombs++;
+                }
             }
         }
     }
