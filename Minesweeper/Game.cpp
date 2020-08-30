@@ -13,6 +13,9 @@ void Game::run()
     sf::RenderWindow window(sf::VideoMode(GRID_SIZE, GRID_SIZE + STATS_SIZE), "MineSweeper");
     window.setFramerateLimit(30);
     window.setKeyRepeatEnabled(false);
+    sf::Image image;
+    image.loadFromFile("Images\\Mine.png");
+    window.setIcon(16,16,image.getPixelsPtr());
     sf::Event event;
     sf::Clock clock;
     sf::Time time;

@@ -1,0 +1,6 @@
+#ifndef _RESOURCE_RC_
+#define _RESOURCE_RC_
+
+MAINICON icon "Images\\MineSweeper.ico"
+
+#endif _RESOURCE_RC_

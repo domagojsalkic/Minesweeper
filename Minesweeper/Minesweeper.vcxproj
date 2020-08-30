@@ -175,6 +175,7 @@
     <Image Include="Images\Flag.png" />
     <Image Include="Images\Four.png" />
     <Image Include="Images\Mine.png" />
+    <Image Include="Images\MineSweeper.ico" />
     <Image Include="Images\NotMine.png" />
     <Image Include="Images\One.png" />
     <Image Include="Images\Seven.png" />
@@ -186,6 +187,9 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fonts\digital-7.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
