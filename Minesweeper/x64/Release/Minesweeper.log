@@ -1,0 +1,10 @@
+﻿  Cell.cpp
+D:\Git\Minesweeper\Minesweeper\stdafx.h(1,10): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+  Game.cpp
+D:\Git\Minesweeper\Minesweeper\stdafx.h(1,10): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+  GameState.cpp
+D:\Git\Minesweeper\Minesweeper\stdafx.h(1,10): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+  Source.cpp
+D:\Git\Minesweeper\Minesweeper\stdafx.h(1,10): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory
+  stdafx.cpp
+D:\Git\Minesweeper\Minesweeper\stdafx.h(1,10): fatal error C1083: Cannot open include file: 'SFML/Audio.hpp': No such file or directory

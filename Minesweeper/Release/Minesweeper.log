@@ -1,0 +1,75 @@
+﻿  stdafx.cpp
+  Cell.cpp
+  Game.cpp
+D:\Git\Minesweeper\Minesweeper\Game.cpp(7,1): warning C4005: 'GRID_SIZE': macro redefinition
+D:\Git\Minesweeper\Minesweeper\Game.h(7): message : see previous definition of 'GRID_SIZE'
+D:\Git\Minesweeper\Minesweeper\Game.cpp(66,35): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Git\Minesweeper\Minesweeper\Game.cpp(86,68): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Git\Minesweeper\Minesweeper\Game.cpp(86,56): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Git\Minesweeper\Minesweeper\Game.cpp(96,52): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  GameState.cpp
+D:\Git\Minesweeper\Minesweeper\GameState.cpp(16,37): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\Git\Minesweeper\Minesweeper\GameState.cpp(208,87): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Git\Minesweeper\Minesweeper\GameState.cpp(208,75): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Git\Minesweeper\Minesweeper\GameState.cpp(245,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Git\Minesweeper\Minesweeper\GameState.cpp(245,69): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+  Source.cpp
+D:\Git\Minesweeper\Minesweeper\Source.cpp(7,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating code
+  155 of 410 functions (37.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    25 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Minesweeper.vcxproj -> D:\Git\Minesweeper\Release\Minesweeper.exe
