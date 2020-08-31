@@ -3,25 +3,22 @@
 #include "GameState.h"
 
 
-#define STATS_SIZE 100
-#define GRID_SIZE 500
-
 
 void Game::run()
 {
     initTextures();
-    sf::RenderWindow window(sf::VideoMode(GRID_SIZE, GRID_SIZE + STATS_SIZE), "MineSweeper");
+    sf::RenderWindow window(sf::VideoMode(GRID_SIZE, GRID_SIZE + STATS_SIZE), "Minesweeper", sf::Style::Close );
     window.setFramerateLimit(30);
     window.setKeyRepeatEnabled(false);
     sf::Image image;
-    image.loadFromFile("Images\\Mine.png");
-    window.setIcon(16,16,image.getPixelsPtr());
+    image.loadFromFile("../Minesweeper/Images/MineSweeper.png");
+    window.setIcon(32,32,image.getPixelsPtr());
     sf::Event event;
     sf::Clock clock;
     sf::Time time;
     GameState gameState;
     gameState.initGameState(window, sf::Vector2f(0, STATS_SIZE), textureMap);
-    font.loadFromFile("Fonts/digital-7.ttf");
+    font.loadFromFile("../Minesweeper/Fonts/digital-7.ttf");
 
     drawStartButton(window);
     drawTimer();
@@ -34,9 +31,9 @@ void Game::run()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+
             if (event.type == sf::Event::MouseButtonReleased)
             {
-
                 if (event.key.code == sf::Mouse::Right)
                 {
                     gameState.rightClick(sf::Mouse::getPosition(window), textureMap);
@@ -136,48 +133,48 @@ void Game::deleteTextures()
 void Game::initTextures()
 {
     sf::Texture* emptyCell(new sf::Texture());
-    emptyCell->loadFromFile("Images\\EmptyCell.png");
+    emptyCell->loadFromFile("../Minesweeper/Images/EmptyCell.png");
     textureMap.emplace("Empty", std::move(emptyCell));
     sf::Texture* one(new sf::Texture());
-    one->loadFromFile("Images\\One.png");
+    one->loadFromFile("../Minesweeper/Images/One.png");
     textureMap.emplace("One", std::move(one));
     sf::Texture* two(new sf::Texture());
-    two->loadFromFile("Images\\Two.png");
+    two->loadFromFile("../Minesweeper/Images/Two.png");
     textureMap.emplace("Two", std::move(two));
     sf::Texture* three(new sf::Texture());
-    three->loadFromFile("Images\\Three.png");
+    three->loadFromFile("../Minesweeper/Images/Three.png");
     textureMap.emplace("Three", std::move(three));
     sf::Texture* four(new sf::Texture());
-    four->loadFromFile("Images\\Four.png");
+    four->loadFromFile("../Minesweeper/Images/Four.png");
     textureMap.emplace("Four", std::move(four));
     sf::Texture* five(new sf::Texture());
-    five->loadFromFile("Images\\Five.png");
+    five->loadFromFile("../Minesweeper/Images/Five.png");
     textureMap.emplace("Five", std::move(five));
     sf::Texture* six(new sf::Texture());
-    six->loadFromFile("Images\\Six.png");
+    six->loadFromFile("../Minesweeper/Images/Six.png");
     textureMap.emplace("Six", std::move(six));
     sf::Texture* seven(new sf::Texture());
-    seven->loadFromFile("Images\\Seven.png");
+    seven->loadFromFile("../Minesweeper/Images/Seven.png");
     textureMap.emplace("Seven", std::move(seven));
     sf::Texture* eight(new sf::Texture());
-    eight->loadFromFile("Images\\Eighth.png");
+    eight->loadFromFile("../Minesweeper/Images/Eighth.png");
     textureMap.emplace("Eighth", std::move(eight));
     sf::Texture* flag(new sf::Texture());
-    flag->loadFromFile("Images\\Flag.png");
+    flag->loadFromFile("../Minesweeper/Images/Flag.png");
     textureMap.emplace("Flag", std::move(flag));
     sf::Texture* mine(new sf::Texture());
-    mine->loadFromFile("Images\\Mine.png");
+    mine->loadFromFile("../Minesweeper/Images/Mine.png");
     textureMap.emplace("Mine", std::move(mine));
     sf::Texture* explodedMine(new sf::Texture());
-    explodedMine->loadFromFile("Images\\ExplodedMine.png");
+    explodedMine->loadFromFile("../Minesweeper/Images/ExplodedMine.png");
     textureMap.emplace("ExplodedMine", std::move(explodedMine));
     sf::Texture* notMine(new sf::Texture());
-    notMine->loadFromFile("Images\\NotMine.png");
+    notMine->loadFromFile("../Minesweeper/Images/NotMine.png");
     textureMap.emplace("NotMine", std::move(notMine));
     sf::Texture* startButton(new sf::Texture());
-    startButton->loadFromFile("Images\\StartButton.png");
+    startButton->loadFromFile("../Minesweeper/Images/StartButton.png");
     textureMap.emplace("StartButton", std::move(startButton));
     sf::Texture* cell(new sf::Texture());
-    cell->loadFromFile("Images\\UnCheckedCell.png");
+    cell->loadFromFile("../Minesweeper/Images/UnCheckedCell.png");
     textureMap.emplace("Cell", std::move(cell));
 }

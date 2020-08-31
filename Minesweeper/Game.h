@@ -4,8 +4,7 @@
 #include "GameState.h"
 
 #define STATS_SIZE 100
-#define GRID_SIZE 600
-
+#define GRID_SIZE 500
 
 class Game
 {
