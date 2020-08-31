@@ -44,17 +44,12 @@ void Game::run()
             }
         }
         
-        while (gameState.isBombExploded())
+        while (gameState.isBombExploded() || gameState.bombLeft() == 0)
         {
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 startPressed(sf::Mouse::getPosition(window), gameState, window, sf::Vector2f(0, STATS_SIZE), textureMap);
                 clock.restart();
-            }
-
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-            {
-                window.close();
             }
         }
 
