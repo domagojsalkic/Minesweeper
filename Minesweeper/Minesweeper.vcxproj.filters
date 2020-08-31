@@ -91,10 +91,18 @@
     <Image Include="Images\NotMine.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Images\MineSweeper.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Fonts\digital-7.ttf">
       <Filter>Resource Files</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
