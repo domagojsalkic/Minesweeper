@@ -3,11 +3,16 @@
 
 
 
-void GameState::initGameState(sf::RenderWindow& window, sf::Vector2f gridPosition, std::unordered_map<std::string, sf::Texture*>& textureMap)
+void GameState::initGameState(sf::RenderWindow& window, sf::Vector2f gridPosition, const std::unordered_map<std::string, sf::Texture*>& textureMap)
 {
     bombExploded = false;
     for (auto cells : grid)
     {
+        for (auto cell : cells)
+        {
+            delete cell;
+            cell = nullptr;
+        }
         cells.clear();
     }
     grid.clear();
@@ -16,6 +21,29 @@ void GameState::initGameState(sf::RenderWindow& window, sf::Vector2f gridPositio
     numOfCells = window.getSize().x / SIZE;
 
     grid.resize(numOfCells, std::vector<Cell*>());
+
+
+    createGrid(gridPosition, textureMap);
+
+    int bombsAround = 0;
+
+    for (int i = 0; i < numOfCells; i++)
+    {
+        for (int j = 0; j < numOfCells; j++)
+        {
+            {   
+                countBombsAround(bombsAround, i, j);
+
+                setContentOfCell(bombsAround,i,j);
+
+            }
+            bombsAround = 0;
+        }
+    }
+}
+
+void GameState::createGrid(sf::Vector2f gridPosition, const std::unordered_map<std::string, sf::Texture*>& textureMap)
+{
     int index = 0;
 
     for (int i = 0; i < numOfCells; i++)
@@ -33,108 +61,105 @@ void GameState::initGameState(sf::RenderWindow& window, sf::Vector2f gridPositio
             index++;
         }
     }
+}
 
-
-    int bombsAround = 0;
-
-    for (int i = 0; i < numOfCells; i++)
+void GameState::countBombsAround(int& bombsAround, const int& i, const int& j) const
+{
+    if (grid[i][j]->getContent() == CellContent::EMPTY)
     {
-        for (int j = 0; j < numOfCells; j++)
+        if (i - 1 >= 0)
         {
-            if (grid[i][j]->getContent() == CellContent::EMPTY)
+            if (grid[i - 1][j]->getContent() == CellContent::BOMB)
             {
-                if (i - 1 >= 0)
-                {
-                    if (grid[i - 1][j]->getContent() == CellContent::BOMB)
-                    {
-                        bombsAround++;
-                    }
-                    if (j - 1 >= 0)
-                    {
-                        if (grid[i - 1][j - 1]->getContent() == CellContent::BOMB)
-                        {
-                            bombsAround++;
-                        }
-                    }
-                    if (j + 1 < numOfCells)
-                    {
-                        if (grid[i - 1][j + 1]->getContent() == CellContent::BOMB)
-                        {
-                            bombsAround++;
-                        }
-                    }
-                }
-                if (i + 1 < numOfCells)
-                {
-                    if (grid[i + 1][j]->getContent() == CellContent::BOMB)
-                    {
-                        bombsAround++;
-                    }
-                    if (j - 1 >= 0)
-                    {
-                        if (grid[i + 1][j - 1]->getContent() == CellContent::BOMB)
-                        {
-                            bombsAround++;
-                        }
-                    }
-                    if (j + 1 < numOfCells)
-                    {
-                        if (grid[i + 1][j + 1]->getContent() == CellContent::BOMB)
-                        {
-                            bombsAround++;
-                        }
-                    }
-                }
-                if (j + 1 < numOfCells)
-                {
-                    if (grid[i][j + 1]->getContent() == CellContent::BOMB)
-                    {
-                        bombsAround++;
-                    }
-                }
-                if (j - 1 >= 0)
-                {
-                    if (grid[i][j - 1]->getContent() == CellContent::BOMB)
-                    {
-                        bombsAround++;
-                    }
-                }
-
-                switch (bombsAround)
-                {
-                case 1:
-                    grid[i][j]->setContent(CellContent::ONE);
-                    break;
-                case 2:
-                    grid[i][j]->setContent(CellContent::TWO);
-                    break;
-                case 3:
-                    grid[i][j]->setContent(CellContent::THREE);
-                    break;
-                case 4:
-                    grid[i][j]->setContent(CellContent::FOUR);
-                    break;
-                case 5:
-                    grid[i][j]->setContent(CellContent::FIVE);
-                    break;
-                case 6:
-                    grid[i][j]->setContent(CellContent::SIX);
-                    break;
-                case 7:
-                    grid[i][j]->setContent(CellContent::SEVEN);
-                    break;
-                case 8:
-                    grid[i][j]->setContent(CellContent::EIGHTH);
-                    break;
-                default:
-                    break;
-                }
-
+                bombsAround++;
             }
-            bombsAround = 0;
+            if (j - 1 >= 0)
+            {
+                if (grid[i - 1][j - 1]->getContent() == CellContent::BOMB)
+                {
+                    bombsAround++;
+                }
+            }
+            if (j + 1 < numOfCells)
+            {
+                if (grid[i - 1][j + 1]->getContent() == CellContent::BOMB)
+                {
+                    bombsAround++;
+                }
+            }
+        }
+        if (i + 1 < numOfCells)
+        {
+            if (grid[i + 1][j]->getContent() == CellContent::BOMB)
+            {
+                bombsAround++;
+            }
+            if (j - 1 >= 0)
+            {
+                if (grid[i + 1][j - 1]->getContent() == CellContent::BOMB)
+                {
+                    bombsAround++;
+                }
+            }
+            if (j + 1 < numOfCells)
+            {
+                if (grid[i + 1][j + 1]->getContent() == CellContent::BOMB)
+                {
+                    bombsAround++;
+                }
+            }
+        }
+        if (j + 1 < numOfCells)
+        {
+            if (grid[i][j + 1]->getContent() == CellContent::BOMB)
+            {
+                bombsAround++;
+            }
+        }
+        if (j - 1 >= 0)
+        {
+            if (grid[i][j - 1]->getContent() == CellContent::BOMB)
+            {
+                bombsAround++;
+            }
         }
     }
 }
+
+void GameState::setContentOfCell(const int& bombsAround, const int& i,const int& j)
+{
+    switch (bombsAround)
+    {
+    case 1:
+        grid[i][j]->setContent(CellContent::ONE);
+        break;
+    case 2:
+        grid[i][j]->setContent(CellContent::TWO);
+        break;
+    case 3:
+        grid[i][j]->setContent(CellContent::THREE);
+        break;
+    case 4:
+        grid[i][j]->setContent(CellContent::FOUR);
+        break;
+    case 5:
+        grid[i][j]->setContent(CellContent::FIVE);
+        break;
+    case 6:
+        grid[i][j]->setContent(CellContent::SIX);
+        break;
+    case 7:
+        grid[i][j]->setContent(CellContent::SEVEN);
+        break;
+    case 8:
+        grid[i][j]->setContent(CellContent::EIGHT);
+        break;
+    default:
+        break;
+    }
+
+}
+
 
 void GameState::draw(sf::RenderWindow& window)
 {
@@ -143,7 +168,7 @@ void GameState::draw(sf::RenderWindow& window)
             window.draw(cell->getShape());
 }
 
-void GameState::drawTextures(std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* explodedCell)
+void GameState::drawTextures(const std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* explodedCell)
 {
     for (auto cells : grid)
     {
@@ -159,47 +184,52 @@ void GameState::drawTextures(std::unordered_map<std::string, sf::Texture*>& text
             }
             else
             {
-                switch (cell->getContent())
-                {
-                case CellContent::BOMB:
-                    cell->getShape().setTexture(textureMap.at("Mine"));
-                    break;
-                case CellContent::ONE:
-                    cell->getShape().setTexture(textureMap.at("One"));
-                    break;
-                case CellContent::TWO:
-                    cell->getShape().setTexture(textureMap.at("Two"));
-                    break;
-                case CellContent::THREE:
-                    cell->getShape().setTexture(textureMap.at("Three"));
-                    break;
-                case CellContent::FOUR:
-                    cell->getShape().setTexture(textureMap.at("Four"));
-                    break;
-                case CellContent::FIVE:
-                    cell->getShape().setTexture(textureMap.at("Five"));
-                    break;
-                case CellContent::SIX:
-                    cell->getShape().setTexture(textureMap.at("Six"));
-                    break;
-                case CellContent::SEVEN:
-                    cell->getShape().setTexture(textureMap.at("Seven"));
-                    break;
-                case CellContent::EIGHTH:
-                    cell->getShape().setTexture(textureMap.at("Eighth"));
-                    break;
-                case CellContent::EMPTY:
-                    cell->getShape().setTexture(textureMap.at("Empty"));
-                    break;
-                default:
-                    break;
-                }
+                setTextureOfCell(*cell, textureMap);
             }
         }
     }
 }
 
-void GameState::leftClick(sf::Vector2i mousePos, std::unordered_map<std::string, sf::Texture*>& textureMap)
+void GameState::setTextureOfCell(Cell& cell, const std::unordered_map<std::string, sf::Texture*>& textureMap)
+{
+    switch (cell.getContent())
+    {
+    case CellContent::BOMB:
+        cell.getShape().setTexture(textureMap.at("Mine"));
+        break;
+    case CellContent::ONE:
+        cell.getShape().setTexture(textureMap.at("One"));
+        break;
+    case CellContent::TWO:
+        cell.getShape().setTexture(textureMap.at("Two"));
+        break;
+    case CellContent::THREE:
+        cell.getShape().setTexture(textureMap.at("Three"));
+        break;
+    case CellContent::FOUR:
+        cell.getShape().setTexture(textureMap.at("Four"));
+        break;
+    case CellContent::FIVE:
+        cell.getShape().setTexture(textureMap.at("Five"));
+        break;
+    case CellContent::SIX:
+        cell.getShape().setTexture(textureMap.at("Six"));
+        break;
+    case CellContent::SEVEN:
+        cell.getShape().setTexture(textureMap.at("Seven"));
+        break;
+    case CellContent::EIGHT:
+        cell.getShape().setTexture(textureMap.at("Eight"));
+        break;
+    case CellContent::EMPTY:
+        cell.getShape().setTexture(textureMap.at("Empty"));
+        break;
+    default:
+        break;
+    }
+}
+
+void GameState::leftClick(sf::Vector2i mousePos, const std::unordered_map<std::string, sf::Texture*>& textureMap)
 {
     for (int i = 0; i < numOfCells; i++)
     {
@@ -225,7 +255,7 @@ void GameState::leftClick(sf::Vector2i mousePos, std::unordered_map<std::string,
                 case CellContent::FIVE:
                 case CellContent::SIX:
                 case CellContent::SEVEN:
-                case CellContent::EIGHTH:
+                case CellContent::EIGHT:
                     openCell(textureMap, grid[i][j]);
                     break;
                 default:
@@ -236,7 +266,7 @@ void GameState::leftClick(sf::Vector2i mousePos, std::unordered_map<std::string,
     }
 }
 
-void GameState::rightClick(sf::Vector2i mousePos, std::unordered_map<std::string, sf::Texture*>& textureMap)
+void GameState::rightClick(sf::Vector2i mousePos, const std::unordered_map<std::string, sf::Texture*>& textureMap)
 {
     for (auto cells : grid)
     {
@@ -257,18 +287,18 @@ void GameState::rightClick(sf::Vector2i mousePos, std::unordered_map<std::string
     }
 }
 
-bool GameState::isBombExploded()
+bool GameState::isBombExploded() const
 {
     return bombExploded;
 }
 
-int GameState::bombLeft()
+int GameState::bombLeft() const
 {
     return numOfBombs;
 }
 
 
-void GameState::openCells(std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, int index)
+void GameState::openCells(const std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, int index)
 {
     for (int i = 0; i < numOfCells; i++)
     {
@@ -306,7 +336,7 @@ void GameState::openCells(std::unordered_map<std::string, sf::Texture*>& texture
 
 }
 
-void GameState::openCell(std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* cell)
+void GameState::openCell(const std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* cell)
 {
     if (!cell->isCellOpen() && !cell->isFlagSet())
     {
@@ -334,8 +364,8 @@ void GameState::openCell(std::unordered_map<std::string, sf::Texture*>& textureM
         case CellContent::SEVEN:
             cell->getShape().setTexture(textureMap.at("Seven"));
             break;
-        case CellContent::EIGHTH:
-            cell->getShape().setTexture(textureMap.at("Eighth"));
+        case CellContent::EIGHT:
+            cell->getShape().setTexture(textureMap.at("Eight"));
             break;
         default:
             break;

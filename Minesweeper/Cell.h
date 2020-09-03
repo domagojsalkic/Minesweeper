@@ -14,7 +14,7 @@ enum class CellContent
     FIVE,
     SIX,
     SEVEN,
-    EIGHTH,
+    EIGHT,
     BOMB
 };
 
@@ -26,23 +26,26 @@ public:
 
     Cell(int index, sf::Texture* texture, CellContent content, sf::Vector2f position);
 
+    ~Cell() = default;
+
     sf::RectangleShape& getShape();
 
     Cell& operator= (const Cell&);
 
-    bool isCellOpen();
+    bool isCellOpen() const;
 
-    int getIndex();
+    int getIndex() const;
 
-    CellContent getContent();
+    CellContent getContent() const;
 
     void setContent(CellContent c);
 
     void Open();
 
-    bool isFlagSet();
+    bool isFlagSet() const;
 
-    void setFlag(std::unordered_map<std::string, sf::Texture*>& textureMap);
+    void setFlag(const std::unordered_map<std::string, sf::Texture*>& textureMap);
+
 
 private:
     sf::RectangleShape shape;

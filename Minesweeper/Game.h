@@ -20,8 +20,8 @@ public:
     void drawTimer();
     void drawBombCount();
 
-    void updateTimer(int seconds);
-    void updateBombCounter(int bombs);
+    void updateTimer(const int& seconds);
+    void updateBombCounter(const int& bombs);
 
 private:
 

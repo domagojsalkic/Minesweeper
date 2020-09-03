@@ -9,25 +9,32 @@ class GameState
 {
 public:
 
-    void initGameState(sf::RenderWindow& window, sf::Vector2f gridPosition, std::unordered_map<std::string, sf::Texture*>& textureMap);
+    void initGameState(sf::RenderWindow& window, sf::Vector2f gridPosition, const std::unordered_map<std::string, sf::Texture*>& textureMap);
 
     void draw(sf::RenderWindow& window);
 
-    void drawTextures(std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* explodedCell);
+    void drawTextures(const std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* explodedCell);
 
-    void leftClick(sf::Vector2i mousePos, std::unordered_map<std::string, sf::Texture*>& textureMap);
+    void leftClick(sf::Vector2i mousePos, const std::unordered_map<std::string, sf::Texture*>& textureMap);
 
-    void rightClick(sf::Vector2i mousePos, std::unordered_map<std::string, sf::Texture*>& textureMap);
+    void rightClick(sf::Vector2i mousePos, const std::unordered_map<std::string, sf::Texture*>& textureMap);
 
-    bool isBombExploded();
+    bool isBombExploded() const;
 
-    int bombLeft();
+    int bombLeft() const;
+
+    void setContentOfCell(const int& bombsAround, const int& i, const int& j);
+
+    void countBombsAround(int& bombsAround, const int& i, const int& j) const;
+
+    void createGrid(sf::Vector2f gridPosition, const std::unordered_map<std::string, sf::Texture*>& textureMap);
+
+    void setTextureOfCell(Cell& cell, const std::unordered_map<std::string, sf::Texture*>& textureMap);
 
 private:
-    void openCells(std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, int index);
-    void openCell(std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* cell);
+    void openCells(const std::unordered_map<std::string, sf::Texture*>& textureMap, std::string textureName, int index);
+    void openCell(const std::unordered_map<std::string, sf::Texture*>& textureMap, Cell* cell);
     std::vector<std::vector<Cell*>> grid;
-    std::vector<std::vector<Cell*>> evidenceGrid;
     bool bombExploded;
     int numOfCells;
     int numOfBombs;

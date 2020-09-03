@@ -36,17 +36,17 @@ Cell& Cell::operator=(const Cell& other)
     return *this;
 }
 
-bool Cell::isCellOpen()
+bool Cell::isCellOpen() const
 {
     return isOpen;
 }
 
-int Cell::getIndex()
+int Cell::getIndex() const
 {
     return index;
 }
 
-CellContent Cell::getContent()
+CellContent Cell::getContent() const
 {
     return content;
 }
@@ -62,12 +62,12 @@ void Cell::Open()
         isOpen = true;
 }
 
-bool Cell::isFlagSet()
+bool Cell::isFlagSet() const
 {
     return isFlag;
 }
 
-void Cell::setFlag(std::unordered_map<std::string, sf::Texture*>& textureMap)
+void Cell::setFlag(const std::unordered_map<std::string, sf::Texture*>& textureMap)
 {
     if (isFlag)
     {

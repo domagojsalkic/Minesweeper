@@ -113,13 +113,13 @@ void Game::drawBombCount()
     bombCountText.setString("0");
 }
 
-void Game::updateTimer(int seconds)
+void Game::updateTimer(const int& seconds)
 {
     timerText.setString(std::to_string(seconds));
     timerText.setPosition(sf::Vector2f(timer.getGlobalBounds().width - timerText.getGlobalBounds().width - 5, timer.getGlobalBounds().height / 2 - timerText.getGlobalBounds().height / 2));
 }
 
-void Game::updateBombCounter(int bombs)
+void Game::updateBombCounter(const int& bombs)
 {
     bombCountText.setString(std::to_string(bombs));
     bombCountText.setPosition(sf::Vector2f(bombCount.getPosition().x + bombCount.getGlobalBounds().width - bombCountText.getGlobalBounds().width - 20, bombCount.getPosition().y ));
@@ -127,6 +127,11 @@ void Game::updateBombCounter(int bombs)
 
 void Game::deleteTextures()
 {
+    for (auto texture : textureMap)
+    {
+        delete texture.second;
+        texture.second = nullptr;
+    }
     textureMap.clear();
 }
 
@@ -158,7 +163,7 @@ void Game::initTextures()
     textureMap.emplace("Seven", std::move(seven));
     sf::Texture* eight(new sf::Texture());
     eight->loadFromFile("../Minesweeper/Images/Eighth.png");
-    textureMap.emplace("Eighth", std::move(eight));
+    textureMap.emplace("Eight", std::move(eight));
     sf::Texture* flag(new sf::Texture());
     flag->loadFromFile("../Minesweeper/Images/Flag.png");
     textureMap.emplace("Flag", std::move(flag));
